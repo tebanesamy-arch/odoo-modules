@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="biblio_room_view_list" model="ir.ui.view">
+        <field name="name">biblio.room.list</field>
+        <field name="model">biblio.room</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="seats"/>
+                <field name="daily_price"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biblio_room_view_form" model="ir.ui.view">
+        <field name="name">biblio.room.form</field>
+        <field name="model">biblio.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!-- bouton intelligent : compte et ouvre les réservations de la salle -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_bookings" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <field name="booking_count" widget="statinfo" string="Réservations"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="seats"/>
+                        <field name="daily_price"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_room_booking_view_list" model="ir.ui.view">
+        <field name="name">biblio.room.booking.list</field>
+        <field name="model">biblio.room.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="room_id"/>
+                <field name="customer"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration"/>
+                <field name="total_price" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biblio_room_booking_view_form" model="ir.ui.view">
+        <field name="name">biblio.room.booking.form</field>
+        <field name="model">biblio.room.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="room_id"/>
+                            <field name="customer"/>
+                            <field name="deposit"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="daily_price"/>
+                            <field name="duration"/>
+                            <field name="total_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_room_action" model="ir.actions.act_window">
+        <field name="name">Salles</field>
+        <field name="res_model">biblio.room</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="biblio_room_booking_action" model="ir.actions.act_window">
+        <field name="name">Réservations</field>
+        <field name="res_model">biblio.room.booking</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="biblio_room_menu_root" name="Salles de travail"/>
+    <menuitem id="biblio_room_booking_menu" name="Réservations" parent="biblio_room_menu_root" action="biblio_room_booking_action" sequence="10"/>
+    <menuitem id="biblio_room_menu" name="Salles" parent="biblio_room_menu_root" action="biblio_room_action" sequence="20"/>
+</odoo>

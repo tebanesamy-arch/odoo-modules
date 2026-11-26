@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="room_small" model="biblio.room">
+        <field name="name">Salle Simenon</field>
+        <field name="seats">4</field>
+        <field name="daily_price">20</field>
+    </record>
+    <record id="room_large" model="biblio.room">
+        <field name="name">Salle Yourcenar</field>
+        <field name="seats">12</field>
+        <field name="daily_price">35</field>
+    </record>
+    <record id="booking_1" model="biblio.room.booking">
+        <field name="room_id" ref="room_large"/>
+        <field name="customer">Club de lecture</field>
+        <field name="start_date" eval="(DateTime.today()).strftime('%Y-%m-%d')"/>
+        <field name="end_date" eval="(DateTime.today() + relativedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="deposit">70</field>
+    </record>
+</odoo>
